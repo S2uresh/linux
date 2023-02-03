@@ -14,6 +14,8 @@
 14.job automation using cron job-->
 15.basic n/w
 16.filesystem
+
+
 ls
 06:30 PM
 pwd
