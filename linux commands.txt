@@ -1,0 +1,614 @@
+1.Introduction to linux
+2.Installtion(aws,vmbox,online)
+3.basic commands
+4.file permions --chmod
+5.useradmin
+6.group admin
+7.back and restore using tar and gzip
+8.installting s/w and managing them
+9.managing services--using systemctl
+10.managing process--usuing top and ps comamnds
+11.remote administraion--using ssh(passwordless authentication)
+12.copy and sync---using scp and rsync
+13.sudo --->
+14.job automation using cron job-->
+15.basic n/w
+16.filesystem
+ls
+06:30 PM
+pwd
+06:30 PM
+touch <filename>
+06:30 PM
+cat filename
+06:30 PM
+cat > filename
+06:30 PM
+enter+ctrl+d
+06:31 PM
+cat >> filename
+06:31 PM
+cp
+06:31 PM
+mv
+06:31 PM
+rm filename
+06:31 PM
+rmdir directoryname
+06:31 PM
+rm -rf  <file/directory>
+06:31 PM
+mkdir <dirname>
+06:32 PM
+mkdir -p  dir1/dir2/dir3
+06:32 PM
+hostname
+06:32 PM
+hostname -i
+06:32 PM
+uptime
+06:32 PM
+date
+06:32 PM
+cal
+06:32 PM
+head -n filename
+06:33 PM
+tail -n filename
+06:33 PM
+grep "test"  filename
+06:33 PM
+cut -->we can cut the required output in columns
+06:33 PM
+sort
+06:33 PM
+alphanumerical order
+06:34 PM
+awk following print filename
+06:34 PM
+man
+06:36 PM
+histroy
+06:36 PM
+clear
+06:36 PM
+ctrl+r
+06:37 PM
+h
+06:37 PM
+DevOps Desk
+dd--delete the lines
+08:12 AM
+ndd--->number lines to deleted
+08:12 AM
+u-undo the changes
+08:12 AM
+shifg+g
+08:14 AM
+gg--starting of the line
+08:14 AM
+:w - Save the file but keep it open
+:q - Quit without saving
+:wq - Save the file and quit
+:q! - Quit without saving forcefully
+:wq! - Save the file and quit forcefully
+08:17 AM
+New messages
+vim editor
+08:25 AM
+sudo su -
+08:25 AM
+yum install vim*
+08:25 AM
+nano editor
+08:27 AM
+yum install nano*
+08:28 AM
+nano  <filename>
+08:29 AM
+ctrl+x
+08:29 AM
+yes
+08:29 AM
+enter
+08:29 AM
+cat /etc/passwd
+08:33 AM
+cat /etc/shadow
+08:40 AM
+passwd  <username >
+08:46 AM
+useradd  <username>  -u  <uid> -g <gid>      -c  <descrip[tion>  -d <home directoty>
+08:54 AM
+userdel <username >  -->to delete the user
+      group adimistion
+
+
+cat /etc/group <for group information>
+08:07 AM
+groupadd <groupname >
+08:09 AM
+adding newgroup
+08:10 AM
+groupadd -g  <guid> <new-groupname >
+08:10 AM
+usermod -G <groupname> <username>
+08:13 AM
+gpasswd -M <user1,user2,user....>  <groupname >
+08:15 AM
+gpasswd -a <username> <groupname >
+08:16 AM
+gpasswd -d <username> <groupname>
+
+    LOCK AND UNLOCK USER
+
+usermod -U <username>
+08:25 AM
+usermod  -L  <username > for locking the account
+     PASSWORD KILL
+chage -l <username > to get the password aging related information
+08:32 AM
+chage <usename >  <to edit the password related information>
+
+SHOET LINK AND HARD LINK
+
+ln -s   <original file> <orinalfile.slink>
+09:01 AM
+ln <originalfile>  <originalfile.hlink>
+
+FILE PERMISSION
+
+
+1)user-level permissions :  /etc/passwd -->users:rwx
+2)group level :--->/etc/groups:rwx
+3)others:-->who are not not account in our machine:rwx
+
+
+r--read only (r)(4)
+w=write acess(w)(2)
+x=excute/run (x)(1)
+
+
+symbolic method 
+
+r,w,x
+
+absolute method 
+
+4,2,1
+
+-r--r--r--. 1 ec2-user ec2-user   0 Oct 16 04:09 sriram
+ 4+0+0+=4
+ 4+0+0=4
+4+0++0=4
+   444
+-rwxrw-r--
+owner =4+2+1=7
+gorup=4+2+o=6
+other=4+0+0=4
+
+764\
+
+
+u+
+g+
+o+
+
+-rw-r--r--. 1 root     root       0 Oct 23 03:07 subbu
+ 644---default permission of the file
+drwxr-xr-x. 2 root     root       6 Oct 23 03:08 veera
+ 755--deafult permisson of the directory
+
+
+default full permisons of the file =666(excuition is not include by default)
+default full permissons of the directory=777
+
+umask=0022---->0222
+
+chmod  
+
+softlink-->shortcutl file-->if original is deleted there is no use of shortcut file
+ln -s <original file> <originalfile.slink>
+
+
+hardlink-->backup file>even though if orinal file is deleted we have backup for it.
+
+ln <originalfile>  <originalfile.hlink>
+
+dir :777
+    0022
+    
+--defult permions of the directory
+file:666
+    0022
+     644
+
+dir :777
+     222
+     555(r-xr-xr-x)---dir
+dr-xr-xr-x. 2 root     root       6 Oct 23 03:18 testdir
+
+file 666
+     222
+     444(r--r--r--)--file
+-r--r--r--. 1 root     root       0 Oct 23 03:17 testfile
+
+ 
+chmod <u+, g+ ,or o+  >  <filename>
+
+
+
+Installting a software in rehdat machine
+what is diff b/w yum and rpm?
+RPM-Redhat packgae manager--by defauly configuration of rhel
+
+vim --->install
+
+dependcies need to be installed first ,then only it will allow the main s/w.
+
+
+#rpm -qa (to check all the installed pckages/s/w)
+#rpm -qa |grep kmod*(to  check particular installed package)
+#rpm -ivh <pakage name>
+#rpm -e   <packgar name>
+
+
+
+
+
+YUM-Yellowdog update modifier
+
+vim --->dependecies will be installed automatically along with the main s/w
+
+#yum list installed
+#yum list installaed <packgename*>
+#yum install <package name>(nano ,vim)  (-y) 
+#yum remove <packgae name> (-y)
+
+#yum update <packgae name > -->to update the packge with latest version>
+
+#yum clean all  
+
+#
+
+100% yum (which updated packge installer):
+
+location of the yum configuration ( /etc/yum.repos.d/)
+new.repo -->new URL >>
+
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++Managing insatlled services+++++++++++++++++++++++++++++++++++++
+
+
+Redhat --->6
+
+
+service & chkconfig
+
+#service crond  status
+#service crond  start
+#servcie crond  restart
+#chkconfig --list
+#chkconfig --list crond
+#chkconfig crond on
+#chkcconfig crond off
+
+rehat -->7,8 systemctl list-unit-files
+             systemctl stop  crond
+             systemctl start  crond
+             systemctl restart crond
+             systemctl status crond
+
++++++++++++++++++++++++++++++++++++++++++
+
+Backup and Restore 
+===================
+Backup
+=======
+tar -cvf <destinationlocation/finame to be > originalfile --- .tar
+cd destination location
+ls -la
+du -h .tar
+gzip <filename>
+ls -la
+du -h filename 
+
+Restore 
+============
+.tar.gz 
+
+--> gunzip filename.tar.gz -- .tar 
+--> tar -xvf finame.tar ---> original file
+
+
+
+
++++++++++++++++++++++++++++++
+process mangement
+
+ps
+ps -a
+ps -aux
+singles
+
+kill -l
+1-reload,9-kill,15-forcefull kill,20-just stop
++++++++++++++++++++++++++++++
+
+next monady---aws :topic
+
+sudo -->
+
+why we need sudo ?
+
+machine --full access to the machine will be root user.
+Team-20
+L1-12--->
+L2-6--sudo access 
+L3-2--root access(root password)
+
+file :visudo or /etc/sudoers
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+case1)root permions :mani-user (password):  sudo useradd : promt for password
+root    ALL=(ALL)  ALL
+mani    ALL=(ALL)  ALL
+
+case2)root permions :mani-user (paswordless): sudo useradd test
+root    ALL=(ALL)   ALL
+mani    ALL=(ALL)   NOPASSWD:ALL
+
+case3)3 users(linux) at a time root permions (visudo % wheel -->linux): password 
+%wheel  ALL=(ALL)   ALL
+%mygroup ALL=(ALL)  ALL
+
+case4)linux group without password -->sudo enabled.
+%wheel  ALL=(ALL)   NOPASSWD :ALL
+mygroup ALL=(ALL)   NOPASSWD :ALL
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Job Automation using crontab:
+
+daily reports
+weekly repotes monthly reports
+
+supporse 100 machines:sumation script-->automation.sh
+crontab-->automation.sh--->daily 9AM or every friday evening 5PM or everythmonth 1st  
+
+mani file is :/etc/crontab
+to view the existing crontab-->crontab -l
+to add new job-->crontab -e
+30 3 30 10 6 mkdir /root/phani
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+ssh
+sudo su -
+root:ssh -i root <ip adderss>
+
+passwd authatication
+                     <path>          root<ip adderss>
+ssh-copy-id -i /root/.ssh/id_rsa.pub root <ip adderss>
+
+
+scp 
+scp -r filename <ip adderss>:/root   push
+
+scp -r <ipadderss>:/root/filename/root  pull
+
+
+scp -r <ipaddress>:/root/ /root    total files copy 
+
+
+
+sudo:
+it is 4 types:
+case1)root permions :mani-user (password):  sudo useradd : promt for password
+root    ALL=(ALL)  ALL
+mani    ALL=(ALL)  ALL
+
+case2)root permions :mani-user (paswordless): sudo useradd test
+root    ALL=(ALL)   ALL
+mani    ALL=(ALL)   NOPASSWD:ALL
+
+case3)3 users(linux) at a time root permions (visudo % wheel -->linux): password 
+%wheel  ALL=(ALL)   ALL
+%mygroup ALL=(ALL)  ALL
+
+case4)linux group without password -->sudo enabled.
+%wheel  ALL=(ALL)   NOPASSWD :ALL
+mygroup ALL=(ALL)   NOPASSWD :ALL
+
+
+crontap
+
+Job Automation using crontab:
+
+daily reports
+weekly repotes 
+monthly reports
+
+supporse 100 machines:sumation script-->automation.sh
+crontab-->automation.sh--->daily 9AM or every friday evening 5PM or everythmonth 1st  
+
+mani file is :/etc/crontab
+to view the existing crontab-->crontab -l
+to add new job-->crontab -e
+30 3 30 10 6 mkdir /root/phani
+
+file system:
+it is 4 types
+
+
+a)partition(p) or disk--types of partions--->1TB(1024GB)--->c(250GB)+d(250GB)+e(250GB)+f(250GB)---->dividing single hard drive into many logical drives.
+
+#fdisk /dev/sda--creating partion  ----->fsdisk /dev/sda
+                                          :d-->2
+                                          :w
+                                           #partprobe -l
+
+:n
+
+p1---/dev/sda1
+
+#mkfs.ext4 /dev/sda1--updating with file sysetm
+
+dev/sda1--/root
+dev/sd2---/home
+
+#vim /etc/fstab--permanent mounting  (remove the disk from /etc/fstab)
+
+#mount -a  (unmount)
+
+
+
+
+
+
+p1---/dev/sda1
+p2---/dev/sda2
+p3-->/dev/sda3
+e1--->/dev/sda4
+
+
+file system-->method of storing date to a drive.
+
+etx4,xfs
+
+etx-3-->maxfile size-->2TB
+
+ext4,xfs--1024TB
+
+
+
+p1---/dev/sda1
+p2---/dev/sda2
+p3-->/dev/sda3
+e1--->/dev/sda4
+e2-->/dve/sda5
+
+fdisk /dev/sda
+
+n:
+
+
+
+
+1000GB(400GB--is reserverd)
+p1-200
+p2-200
+p3-200
+e1-100GB
+e2
+
+hardsik
+
+hda--->slow perrfomance
+vda-->medium perfomace
+sda-->high speed(ssd)(input/output operation speed is high)
+
+rhel-6--->28 partions--limit
+rehel7--128 partions
+
+b)filesystem--types
+
+
+c)swap
+
+RAM--windows
+
+RAM(FULL)+SWAP(moveing sleeping or unwanted process)-->machine speed
+
+4GB---2GB SWAP(hardsik)
+
+256GB-->32GB
+
+free -m
+swapon  <dev/sda3>
+swapoff <dev/sda3>
+
+
+d)LVM
+
+logical volume management-->
+
+dynamically we can increase or or decrese the disk space.
+
+
+
+partions
+filesystem
+mounting
+swap
+LVM
+/dev/sda1--physical volu
+/dev/sda2
+/dev/sd3
+
+dev/sda1-p1-root,/dev/sda2/--boot,/dev/sda3--swap
+
+
+PV's--->PV1(dev/sda4-100GB)+PV2(/dev/sda5--100GB)+PV3(/dev/sd6--100GB)+PV4(dev/sd7-100GB)
+fdsik /dev/sda
+pvcreate /dve/sda4-->PV1--pvdisplay
+pvcreate /dev/sda5
+pvcreate /dev/sda6
+pvcreate /dve/sda7
+
+
+VG's---vgcrate vgname  <dve/sda4> /dve/sd5>.........---400GB
+
+LVM
+
+lvcreate +L 100GB  vgname lvmname(LVM)
+
+lvcreate
+lvcreateb 
+
+
+lvextend 
+
+lvredcue
+
+
+
+
++++++++++++++++++++++++++++++
+inveriew questions--documnets
+realtime --->
++++++++++++++++++++++++++++++
+
+next monady---aws :topic
+
+sudo -->
+
+why we need sudo ?
+
+machine --full access to the machine will be root user.
+Team-20
+L1-12--->
+L2-6--sudo access 
+L3-2--root access(root password)
+
+
+
+
+ 				the end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
